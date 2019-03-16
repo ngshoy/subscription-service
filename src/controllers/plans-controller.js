@@ -1,4 +1,4 @@
-const router = require('express').Router;
+const router = require('express').Router();
 const asyncWrapper = require('../utils/async-wrapper').AsyncWrapper;
 const PlansService = require("../services/plans-service");
 
