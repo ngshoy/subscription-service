@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const asyncWrapper = require('../utils/async-wrapper').AsyncWrapper;
 const PlansService = require("../services/plans-service");
+const validator = require('../middleware/validator');
 
 const plansService = new PlansService();
 
@@ -17,7 +18,7 @@ router.get('/:id', asyncWrapper(async (req, res) => {
   res.send(plan);
 }));
 
-router.post('/', asyncWrapper(async (req, res) => {
+router.post('/', validator('Plan'), asyncWrapper(async (req, res) => {
   const plan = await plansService.create(req.body);
   res.send(plan);
 }));
