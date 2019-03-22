@@ -5,7 +5,7 @@ const SubscriptionsService = require("../services/subscriptions-service");
 const subscriptionsService = new SubscriptionsService();
 
 router.get('/', asyncWrapper(async (req, res) => {
-  const userId = null;
+  const userId = 1;
   const subscription = await subscriptionsService.findAll(userId);
   res.send(subscription);
 }));

@@ -6,7 +6,7 @@ const validator = require('../middleware/validator');
 const plansService = new PlansService();
 
 router.get('/', asyncWrapper(async (req, res) => {
-  const userId = null;
+  const userId = 1;
   const plans = await plansService.findAll(userId);
   res.send(plans);
 }));

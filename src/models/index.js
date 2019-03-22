@@ -8,7 +8,7 @@ const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.js');
 const db = {};
 
-const sequelize = ({
+const sequelize = new Sequelize({
   host: config.host,
   username: config.username,
   password: config.password,
