@@ -1,4 +1,4 @@
-const Joi = require('joi');
+const Joi = require("joi");
 
 'use strict';
 module.exports = (sequelize, DataTypes) => {
@@ -14,9 +14,10 @@ module.exports = (sequelize, DataTypes) => {
   return Plan;
 };
 
+
 module.exports.PlanValidationSchema = Joi.object().keys({
-  name: Joi.string().required(),
-  price: Joi.number().positive().allow(0).required(),
-  type: Joi.string().valid('monthly', 'yearly').required(),
-  userId: Joi.number().positive().required()
-});
+    name: Joi.string().required(),
+    price: Joi.number().positive().allow(0).required(),
+    type: Joi.string().valid("monthly", "yearly").required(),
+    userId: Joi.number().positive().required()
+})
