@@ -1,8 +1,8 @@
 const amqplib = require("amqplib");
 
 module.exports = class AmqpService {
-    constructor(connectionString, channelName, queueName) {
-        this.connectionString = connectionString;
+    constructor(connectionUrl, channelName, queueName) {
+        this.connectionUrl = connectionUrl;
         this.channelName = channelName;
         this.queueName = queueName;
         this.channel = null;
@@ -13,7 +13,7 @@ module.exports = class AmqpService {
         if(this.connection && this.channel) {
             return;
         }
-        this.connection = await amqplib.connect(this.connectionString);
+        this.connection = await amqplib.connect(this.connectionUrl);
         this.channel = await this.connection.createChannel(this.channelName);
         return await this.channel.assertQueue(this.queueName);
     }
