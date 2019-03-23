@@ -8,3 +8,12 @@
 
 #TO REVERT MIGRATION
 - sequelize db:migrate:undo:all (it will call down methods)
+
+#TO START RABBITMQ
+- register at cloudamqp.com
+- create a queue after registration
+- copy the amqp url to ecosystem config
+
+#ABOUT API GATEWAY
+- API GATEWAY will reroute your requests to /api/plans and /api/subscriptions to their relative ports
+- It is exposed at http://localhost:8080/
