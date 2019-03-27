@@ -18,5 +18,10 @@ module.exports.UserValidationSchema = Joi.object().keys({
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
   email: Joi.string().email().required(),
-  password: Joi.string().required.min(6).max(32)
+  password: Joi.string().required().min(6).max(32)
+});
+
+module.exports.LoginValidationSchema = Joi.object().keys({
+  email: Joi.string().email().required(),
+  password: Joi.string().required()
 });

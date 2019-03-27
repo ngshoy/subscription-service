@@ -7,7 +7,8 @@ const ValidationError = require("../../../errors/validation-error");
 let validators = {
     "User": {
         scopes: {
-            default: User.UserValidationSchema
+            default: User.UserValidationSchema,
+            login: User.LoginValidationSchema
         }
     }
 }
