@@ -1,12 +1,15 @@
 const router = require("express").Router();
 const asyncWrapper = require("../../../utils/async-wrapper").AsyncWrapper;
 const SubscriptionsService = require("../services/subscriptions-service");
+const protectedRoute = require('../middleware/protected-route');
 
 const subscriptionsService = new SubscriptionsService();
 
+router.use(protectedRoute());
+
 //GET api/subscriptions
 router.get("/", asyncWrapper(async (req, res) => {
-    let userId = 1;
+    let userId = req.user;
     let subscriptions = await subscriptionsService.findAll(userId);
     res.send(subscriptions);
 }));
@@ -19,7 +22,10 @@ router.get("/:id", asyncWrapper(async (req, res) => {
 
 //POST api/subscriptions
 router.post("/", asyncWrapper(async (req, res) => {
-    let subscription = await subscriptionsService.create(req.body);
+    let subscription = req.body;
+    const userId = req.user;
+    subscription.userId = userId;
+    subscription = await subscriptionsService.create(req.body);
     res.send(subscription);
 }));
 

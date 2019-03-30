@@ -2,12 +2,15 @@ const router = require("express").Router();
 const asyncWrapper = require("../../../utils/async-wrapper").AsyncWrapper;
 const PlansService = require("../services/plans-service");
 const validator = require("../middleware/validator");
+const protectedRoute = require('../middleware/protected-route');
 
 const plansService = new PlansService();
 
+router.use(protectedRoute());
+
 //GET api/plans
 router.get("/", asyncWrapper(async (req, res) => {
-    let userId = 1;
+    let userId = req.user;
     let plans = await plansService.findAll(userId);
     res.send(plans);
 }));
@@ -22,7 +25,10 @@ router.get("/:id", asyncWrapper(async (req, res) => {
 
 //POST api/plans
 router.post("/", [validator("Plan")], asyncWrapper(async (req, res) => {
-    let plan = await plansService.create(req.body);
+    let plan = req.body;
+    const userId = req.user;
+    plan.userId = userId;
+    plan = await plansService.create(plan);
     res.send(plan);
 }));
 
