@@ -2,8 +2,12 @@ const AMQP_CONNECTION_URL = 'amqp://mmysyyfa:8WkaqxT4Ufn1-OwEMt3n6PAn5P61cOm3@ll
 const AMQP_CHANNEL_NAME = 'PAYMENTS_GATEWAY';
 const AMQP_QUEUE_NAME = 'SUBSCRIPTION_SERVICE_QUEUE';
 
-const TOKEN_ISSUER = 'saas';
-const AUTH_SECRET = 'adsgadfgrbokehtbin';
+const REDIS_HOST = 'localhost';
+const REDIS_PORT = '6380';
+const REDIS_PASSWORD = '';
+
+const TOKEN_ISSUER = 'Big Brother';
+const AUTH_SECRET = 'I\'m watching you';
 
 module.exports = {
   apps: [{
@@ -19,7 +23,10 @@ module.exports = {
       MYSQL_DB: 'PlansDb',
       PORT: 3001,
       TOKEN_ISSUER,
-      AUTH_SECRET
+      AUTH_SECRET,
+      REDIS_HOST,
+      REDIS_PORT,
+      REDIS_PASSWORD
     },
     env_production: {
       NODE_ENV: 'production'

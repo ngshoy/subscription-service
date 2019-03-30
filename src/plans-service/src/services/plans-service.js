@@ -1,8 +1,22 @@
 const Plan = require("../models/index")["Plan"];
+const CachingService = require('./caching-service');
 
 module.exports = class PlansService {
+    constructor() {
+        this.cachingService = new CachingService({
+            host: process.env.REDIS_HOST,
+            port: process.env.REDIS_PORT,
+            password: process.env.REDIS_PASSWORD
+        });
+    }
+
     async findAll(userId) {
-        return await Plan.findAll({where: {userId}});
+        let plans = await this.cachingService.getPlans(userId);
+        if (!plans) {
+            plans = await Plan.findAll({where: {userId}});
+            this.cachingService.storePlans(userId, plans);
+        }
+        return plans;
     }
 
     async findOne(id) {
