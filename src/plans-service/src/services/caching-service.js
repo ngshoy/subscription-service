@@ -30,7 +30,7 @@ module.exports = class CachingService {
 
   async storePlans(userId, plans) {
     plans = plans || [];
-    await purgeCache(userId);
+    await this.purgeCache(userId);
     await promisify(this.redisClient.hset).bind(this.redisClient)(getUserKey(userId), this.plansKey, JSON.stringify(plans));
   }
 }

@@ -24,10 +24,18 @@ module.exports = class PlansService {
     }
 
     async create(plan) {
+        await this.cachingService.purgeCache(plan.userId);
         return await Plan.create(plan);
     }
 
     async deleteOne(id) {
-        return await Plan.destroy({where: {id}});
+        const plan = await this.findOne(id);
+        if (plan) {
+            await this.cachingService.purgeCache(plan.userId);
+            return await Plan.destroy({where: {id}});
+        } else {
+            return Promise.resolve();
+        }
+        
     }
 }
