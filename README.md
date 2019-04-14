@@ -4,6 +4,8 @@
 
 #TO POPULATE TABLES
 - cd src
+- sequelize model:generate --name Plan --attributes name:string,price:float,type:string,userId:integer
+- sequelize model:generate --name Subscription --attributes ...
 - sequelize db:migrate
 
 #TO REVERT MIGRATION
